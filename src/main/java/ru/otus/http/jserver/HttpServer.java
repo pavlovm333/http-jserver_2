@@ -29,7 +29,7 @@ public class HttpServer {
                         continue;
                     }
                     HttpRequest request = new HttpRequest(new String(buffer, 0, n));
-                    request.info(true);
+                    request.info();
                     dispatcher.execute(request, socket.getOutputStream());
                 }
             }
