@@ -24,6 +24,8 @@ public class Dispatcher {
         this.default400Processor = new Default400Processor();
         this.default404Processor = new Default404Processor();
         this.default500Processor = new Default500Processor();
+        this.router.put("PUT /products", new UpdateProductProcessor(productsService));
+        this.router.put("DELETE /products", new DeleteProductProcessor(productsService));
     }
 
     public void execute(HttpRequest request, OutputStream output) throws IOException {
