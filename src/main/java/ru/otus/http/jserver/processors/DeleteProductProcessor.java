@@ -20,22 +20,21 @@ public class DeleteProductProcessor implements RequestProcessor {
     @Override
     public void execute(HttpRequest request, OutputStream output) throws IOException {
         String jsonResult = null;
-        String code = "404 Not Found";
-        String type = "text/html";
+        String code = "200 Ok";
+        String type = "application/json";
         Gson gson = new Gson();
         if (request.containsParameter("id")) {
             Long id = Long.parseLong(request.getParameter("id"));
             Product product = productsService.deleteProductById(id);
             if (product != null) {
                 jsonResult = gson.toJson(product);
-                code = "200 Ok";
-                type = "application/json";
+            } else {
+                code = "404 Not Found";
+                type = "text/html";
             }
         } else {
             List<Product> products = productsService.deleteAllProducts();
             jsonResult = gson.toJson(products);
-            code = "200 Ok";
-            type = "application/json";
         }
         String response = "" +
                 "HTTP/1.1 " + code + "\r\n" +
